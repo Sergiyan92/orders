@@ -1,23 +1,24 @@
 <script setup>
-import NavigationMenu from './components/NavigationMenu/NavigationMenu.vue';
-import TopMenu from './components/TopMenu/TopMenu.vue';
+import NavigationMenu from "./components/NavigationMenu/NavigationMenu.vue";
+import TopMenu from "./components/TopMenu/TopMenu.vue";
 </script>
 
 <template>
-  <div style="display: flex;">
-    <TopMenu/>
-    <NavigationMenu />    
-   
-    <router-view />
+  <div  class=" p-0">
+    <TopMenu />
+    <div class="row">
+      <div class="col-md-3 ">
+        <NavigationMenu />
+      </div>
+      <div class="col-md-9">
+        <router-view />
+      </div>
+    </div>
   </div>
 </template>
 
-
-
 <style>
-/* Глобальні стилі */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-
 }
 </style>

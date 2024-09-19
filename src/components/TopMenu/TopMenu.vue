@@ -28,38 +28,22 @@ export default {
   mounted() {
     setInterval(this.updateTime, 60000);
 
-    const socket = io("http://localhost:3000"); 
+    const socket = io("http://localhost:3000");
 
     socket.on("sessionUpdate", (count) => {
-      
       this.activeSessions = count;
     });
-
- 
   },
 };
 </script>
+
 <template>
-  <div class="top-menu">
-    <span class="current-time">Сьогодні {{ currentTime }}</span>
-    <span class="active-sessions">Active Sessions: {{ activeSessions }}</span>
+  <div
+    class="d-flex flex-column ms-auto p-2  shadow-sm align-items-end"
+  >
+    Сьогодні <span class="current-time">{{ currentTime }}</span>
+    <span class="badge bg-primary">Active Sessions: {{ activeSessions }}</span>
   </div>
 </template>
 
-<style scoped>
-.top-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  background-color: #f1f1f1;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
 
-.current-time,
-.active-sessions {
-  margin-left: 15px;
-  font-size: 14px;
-  font-weight: bold;
-}
-</style>

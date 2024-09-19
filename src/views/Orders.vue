@@ -1,5 +1,5 @@
 <template>
-  <div class="orders">
+  <div class="orders bg-body-secondary">
     <h2>Orders List</h2>
     <div style="display: flex">
       <ul>

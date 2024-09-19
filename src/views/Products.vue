@@ -22,7 +22,7 @@
   };
   </script>
 <template>
-    <div class="products">
+    <div class="products bg-body-secondary">
       <h2>Products List</h2>
       <label for="filter">Filter by Type:</label>
       <select v-model="selectedType" id="filter">

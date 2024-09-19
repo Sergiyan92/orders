@@ -1,22 +1,13 @@
-
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
 }
 
-#app {
-  max-width: 1280px; 
-}
-
-ul{
+ul {
   list-style: none;
+}
+.router-link-active {
+  padding-bottom: 3px;
+  border-radius: 2px;
+  border-bottom: 3px solid rgb(9, 116, 6);
+  
 }
