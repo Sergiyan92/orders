@@ -6,13 +6,13 @@ import TopMenu from "./components/TopMenu/TopMenu.vue";
 <template>
   <div  class=" p-0">
     <TopMenu />
-    <div class="row">
-      <div class="col-md-3 ">
+    <div class="">
+      <div class=" ">
         <NavigationMenu />
       </div>
-      <div class="col-md-9">
+      <!-- <div class="col-md-9">
         <router-view />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
