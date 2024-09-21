@@ -15,37 +15,49 @@ export default {
       this.$store.commit("setFilterType", this.filterType);
     },
     formatWarrantyDates(guarantee) {
-      return `Start ${new Date(
-        guarantee.start
-      ).toLocaleDateString()} End ${new Date(
-        guarantee.end
-      ).toLocaleDateString()}`;
+      return `
+        <div>
+          <span>Start: ${new Date(guarantee.start).toLocaleDateString()}</span><br />
+          <span>End: ${new Date(guarantee.end).toLocaleDateString()}</span>
+        </div>
+      `;
     },
   },
 };
 </script>
 
 <template>
-  <div class="products w-75 bg-body-secondary">
-    <h2>Products List</h2>
-    <label for="typeFilter">Filter by Type:</label>
-    <select v-model="filterType" @change="updateFilter">
-      <option value="all">All</option>
-      <option value="Monitors">Monitors</option>
-      <option value="Mouse">Mouse</option>
-    </select>
-
-    <ul>
-      <li v-for="product in filteredProducts" :key="product.id">
-        <h3>{{ product.title }}</h3>
-        <p>Type: {{ product.type }}</p>
-        <p>Guarantee: {{ formatWarrantyDates(product.guarantee) }}</p>
-        <p>
-          Price:
-          <span v-for="price in product.price" :key="price.symbol">
+  <div class="products container bg-light p-4">
+    <div class="d-flex align-items-center mb-3">
+      <h2 class="me-4">Products List</h2>
+      <label for="typeFilter" class="me-2">Type:</label>
+      <select v-model="filterType" @change="updateFilter" class="form-select w-25">
+        <option value="all">All</option>
+        <option value="Monitors">Monitors</option>
+        <option value="Mouse">Mouse</option>
+      </select>
+    </div>
+    
+    <ul class="list-unstyled">
+      <li
+        v-for="product in filteredProducts"
+        :key="product.id"
+        class="d-flex align-items-center justify-content-between border rounded p-3 mb-2 bg-white"
+      >
+        
+          <h3 class="mb-1">{{ product.title }}</h3>
+          <p class="mb-1">Type: {{ product.type }}</p>
+          <p v-html="formatWarrantyDates(product.guarantee)" class="mb-1"></p>
+        
+        <div>
+          <span
+            v-for="price in product.price"
+            :key="price.symbol"
+            class="d-block"
+          >
             {{ price.value }} {{ price.symbol }}
           </span>
-        </p>
+        </div>
       </li>
     </ul>
   </div>
@@ -54,9 +66,5 @@ export default {
 <style scoped>
 .products {
   height: 100vh;
-  padding: 20px;
-}
-.products h2 {
-  margin-bottom: 20px;
 }
 </style>

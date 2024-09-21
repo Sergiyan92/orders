@@ -5,12 +5,12 @@ import { RouterLink } from "vue-router";
 <template>
   <div class="d-flex">
     <nav class="d-flex w-25 justify-content-center mt-3">
-      <ul class="d-flex  flex-column align-items-center list-unstyled text-center fw-bold">
-        <li class="mb-2">
-          <router-link to="/orders" class="text-decoration-none">Orders</router-link>
+      <ul class="d-flex  flex-column  align-items-center list-unstyled text-center fw-bold">
+        <li class="mb-2 ">
+          <router-link to="/orders" class="text-decoration-none text-black">Orders</router-link>
         </li>
         <li>
-          <router-link to="/products" class="text-decoration-none">Products</router-link>
+          <router-link to="/products" class="text-decoration-none text-black">Products</router-link>
         </li>
       </ul>
     </nav> 

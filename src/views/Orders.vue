@@ -40,52 +40,63 @@ export default {
 </script>
 
 <template>
-  <div class="orders bg-body-secondary w-75">
+  <div class="orders container bg-light p-4">
     <h2>Orders List</h2>
-    <div style="display: flex">
-      <ul>
+    <div class="d-flex">
+      <ul class="list-unstyled">
         <li
           v-for="order in filteredOrders"
           :key="order.id"
           @click="selectOrder(order)"
-          class="order-item"
+          class="order-item d-flex justify-content-between align-items-center p-3 border rounded mb-2 bg-white"
         >
-          <h3>{{ order.title }}</h3>
-          <p>Products Count: {{ order.products.length }}</p>
-          <p style="display: flex; flex-direction: column">
-            <span>{{ formatDate(order.date, "short") }}</span>
+          <h3 class="mb-1">{{ order.title }}</h3>
+          <p class="mb-1">Products Count: {{ order.products.length }}</p>
+          <p class="mb-0">
+            <span>{{ formatDate(order.date, "short") }}</span
+            ><br />
             <span>{{ formatDate(order.date, "full") }}</span>
           </p>
           <p
             v-if="order.products && order.products.length"
-            v-for="product in order.products"
-            :key="product.id"
+            class="mb-0 text-center"
           >
-            <span style="display: flex; flex-direction: column">
-              <span v-for="price in product.price" :key="price.symbol">
+            <span
+              v-for="product in order.products"
+              :key="product.id"
+              class="d-block"
+            >
+              <span
+                v-for="price in product.price"
+                :key="price.symbol"
+                class="d-block"
+              >
                 {{ price.value }} {{ price.symbol }}
               </span>
             </span>
           </p>
-          <p v-else style="display: flex; flex-direction: column">
-            <span>00 USD</span>
-            <span> 00 UAH</span>
+          <p v-else class="mb-0">
+            <span>00 USD</span><br />
+            <span>00 UAH</span>
           </p>
 
           <button
             @click.stop="confirmDelete(order)"
-            style="background-color: white; border: none"
+            class="btn btn-link p-0 text-danger"
           >
             <DeleteIcon />
           </button>
         </li>
       </ul>
 
-      <div v-if="selectedOrder" class="order-details">
+      <div
+        v-if="selectedOrder"
+        class="order-details position-relative border rounded bg-white p-3 ms-2"
+      >
         <button class="close-btn" @click="deselectOrder">
-          <CloseIcon class="close-icon" />
+          <CloseIcon class="" />
         </button>
-        <h3 style="padding-left: 32px; padding-top: 5px;">{{ selectedOrder.title }}</h3>
+        <h3 class="mt-2 ms-4">{{ selectedOrder.title }}</h3>
         <div v-if="selectedOrder.products.length === 0">
           <p>No products in this order</p>
         </div>
@@ -96,25 +107,22 @@ export default {
           </li>
         </ul>
       </div>
-
       <div v-if="showDeleteConfirmation" class="modal-overlay">
         <div class="modal-content">
           <button class="close-btn" @click="cancelDelete"><CloseIcon /></button>
-          <p style="margin: 20px 0 0 20px;">Are you sure you want to delete this order?</p>
-          <h3 style="margin: 20px 0 0 20px;">{{ orderToDelete?.title }}</h3>
-          <p style="margin: 20px 0 5px 20px;">Total Products: {{ orderToDelete?.products.length }}</p>
+          <p style="margin: 20px 0 0 20px">
+            Are you sure you want to delete this order?
+          </p>
+          <h3 style="margin: 20px 0 0 20px">{{ orderToDelete?.title }}</h3>
+          <p style="margin: 20px 0 5px 20px">
+            Total Products: {{ orderToDelete?.products.length }}
+          </p>
           <div class="modal-footer">
-            <button
-              @click="deleteOrder"
-              style="background-color: inherit; border: none"
-            >
+            <button @click="deleteOrder" class="delete-btn" style="">
               <span style="color: white; font-weight: 600">Delete</span>
             </button>
-            <button
-              @click="cancelDelete"
-              style="border: none; padding: 5px 15px; border-radius: 20px"
-            >
-              <span style="color: red; font-weight: 600">Cancel</span>
+            <button @click="cancelDelete" class="btn-cancel">
+              <span>Cancel</span>
             </button>
           </div>
         </div>
@@ -126,45 +134,11 @@ export default {
 <style scoped>
 .orders {
   height: 100vh;
-  padding: 20px;
 }
 
 .order-item {
-  display: flex;
-  align-items: center;
-  width: 530px;
-  justify-content: space-between;
+  width: 550px;
   cursor: pointer;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
-  padding: 10px;
-  margin-bottom: 5px;
-  background-color: white;
-}
-
-.order-details {
-  position: relative;
-  margin-left: 10px;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.close-btn {
-  background-color: white;
-  border: none;
-  padding: 0;
-}
-.close-icon {
-  cursor: pointer;
-  width: 15px;
-  height: 15px;
-}
-.delete-icon {
-  cursor: pointer;
-  width: 10px;
-  height: 10px;
 }
 .modal-overlay {
   position: fixed;
@@ -178,19 +152,17 @@ export default {
   align-items: center;
   z-index: 1000;
 }
-
 .modal-content {
   position: relative;
   background-color: white;
-
   border-radius: 5px;
   width: 100%;
   max-width: 600px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
-
 .close-btn {
   position: absolute;
+  border: none;
   top: -14px;
   right: -15px;
   background: rgb(241, 238, 238);
@@ -199,12 +171,22 @@ export default {
   width: 30px;
   height: 30px;
 }
-
+.btn-cancel {
+  border: none;
+  border-radius: 20px;
+  color: red;
+  padding: 5px 30px;
+  font-weight: 600;
+}
+.delete-btn {
+  background-color: inherit;
+  border: none;
+}
 .modal-footer {
   display: flex;
   justify-content: flex-end;
   border-bottom: 0px;
-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
   background-color: #24a718;
   padding: 10px;
 }
