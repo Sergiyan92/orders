@@ -7,6 +7,9 @@ const store = createStore({
     return {
       products: products,
       orders: orders,
+      selectedOrder: null,
+      showDeleteConfirmation: false,
+      orderToDelete: null,
       filterType: "all", // Начальный фильтр
     };
   },
@@ -26,21 +29,35 @@ const store = createStore({
     },
   },
   mutations: {
-    setOrders(state, orders) {
-      state.orders = orders;
+    selectOrder(state, order) {
+      state.selectedOrder = order;
     },
-    addOrder(state, order) {
-      state.orders.push(order);
+    deselectOrder(state) {
+      state.selectedOrder = null;
     },
-    deleteOrder(state, orderId) {
-      state.orders = state.orders.filter(order => order.id !== orderId);
+    confirmDelete(state, order) {
+      state.showDeleteConfirmation = true;
+      state.orderToDelete = order;
+    },
+    deleteOrder(state) {
+      state.orders = state.orders.filter(order => order !== state.orderToDelete);
+      state.selectedOrder = null;
+      state.showDeleteConfirmation = false;
+      state.orderToDelete = null;
+    },
+    cancelDelete(state) {
+      state.showDeleteConfirmation = false;
+      state.orderToDelete = null;
     },
     setFilterType(state, type) {
       state.filterType = type;
     },
   },
   getters: {
-    allOrders: (state) => state.orders,
+    filteredOrders(state) {
+      return state.orders;
+    },
+    // allOrders: (state) => state.orders,
     filteredProducts(state) {
       if (state.filterType === "all") {
         return state.products;

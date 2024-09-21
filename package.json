@@ -4,9 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-     "socket-server": "node ./server.js",
+    "socket-server": "node ./server.js",
     "dev": "concurrently \"vite\" \"npm run socket-server\"",
-    
     "build": "vite build",
     "preview": "vite preview"
   },

@@ -53,6 +53,7 @@ export default {
 
 <style scoped>
 .products {
+  height: 100vh;
   padding: 20px;
 }
 .products h2 {
