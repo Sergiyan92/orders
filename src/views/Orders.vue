@@ -91,19 +91,19 @@ export default {
 
       <div
         v-if="selectedOrder"
-        class="order-details position-relative border rounded bg-white p-3 ms-2"
+        class="w-100 h-100 position-relative border rounded bg-white p-3 ms-2"
       >
         <button class="close-btn" @click="deselectOrder">
           <CloseIcon class="" />
         </button>
         <h3 class="mt-2 ms-4">{{ selectedOrder.title }}</h3>
         <div v-if="selectedOrder.products.length === 0">
-          <p>No products in this order</p>
+          <p class="ms-4">No products in this order</p>
         </div>
         <ul v-else>
-          <li v-for="product in selectedOrder.products" :key="product.id">
-            <h5>{{ product.title }}</h5>
-            <p>Type: {{ product.type }}</p>
+          <li class="d-flex" v-for="product in selectedOrder.products" :key="product.id">
+            <h5 >{{ product.title }}</h5>
+            <p class="ms-5">Type: {{ product.type }}</p>
           </li>
         </ul>
       </div>

@@ -41,7 +41,7 @@ export default {
   <div
     class="d-flex flex-column ms-auto p-2  shadow-sm align-items-end"
   >
-    Сьогодні <span class="current-time">{{ currentTime }}</span>
+    Today <span class="current-time">{{ currentTime }}</span>
     <span class="badge bg-primary">Active Sessions: {{ activeSessions }}</span>
   </div>
 </template>

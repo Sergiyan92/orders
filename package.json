@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "socket-server": "node ./server.js",
-    "dev": "concurrently \"vite\" \"npm run socket-server\"",
+    "dev": "concurrently \"vite --host\" \"npm run socket-server\"",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "vite"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
