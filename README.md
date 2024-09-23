@@ -61,8 +61,8 @@ This is a **Single Page Application (SPA)** built using **Vue 3** with Vue Route
 
 #### 1. Cloning the Project
 ```bash
-git clone https://github.com/yourusername/orders-products.git
-cd orders-products
+git clone https://github.com/Sergiyan92/orders.git
+cd orders
 ```
 
 #### 2. Running the Project Locally
@@ -129,6 +129,12 @@ orders-products/
 ---
 
 ### Scripts
+
+- **Install Development Server:**
+
+```bash
+npm install
+```
 
 - **Start Development Server:**
 
