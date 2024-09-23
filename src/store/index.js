@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { products } from "../data/products.js"; // Импортируйте ваши продукты
+import { products } from "../data/products.js"; 
 import { orders } from "../data/orders.js";
 
 const store = createStore({
@@ -10,14 +10,14 @@ const store = createStore({
       selectedOrder: null,
       showDeleteConfirmation: false,
       orderToDelete: null,
-      filterType: "all", // Начальный фильтр
+      filterType: "all", 
     };
   },
   actions: {
     fetchOrders({ commit }) {
-      // Fetch orders from an API or static data
+      
       const orders = [
-        // Your orders data
+  
       ];
       commit('setOrders', orders);
     },
@@ -57,7 +57,7 @@ const store = createStore({
     filteredOrders(state) {
       return state.orders;
     },
-    // allOrders: (state) => state.orders,
+   
     filteredProducts(state) {
       if (state.filterType === "all") {
         return state.products;

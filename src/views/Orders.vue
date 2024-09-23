@@ -1,41 +1,31 @@
-<script>
-import { mapState, mapMutations } from "vuex";
+<script setup>
+import { computed } from "vue";
+import { useStore } from "vuex";
 import CloseIcon from "../components/icons/CloseIcon.vue";
 import DeleteIcon from "../components/icons/DeleteIcon.vue";
 
-export default {
-  components: {
-    DeleteIcon,
-    CloseIcon,
-  },
-  computed: {
-    ...mapState([
-      "orders",
-      "selectedOrder",
-      "showDeleteConfirmation",
-      "orderToDelete",
-    ]),
-    filteredOrders() {
-      return this.orders;
-    },
-  },
-  methods: {
-    ...mapMutations([
-      "selectOrder",
-      "deselectOrder",
-      "confirmDelete",
-      "deleteOrder",
-      "cancelDelete",
-    ]),
-    formatDate(date, format) {
-      const options = {
-        short: { month: "2-digit", day: "2-digit", year: "numeric" },
-        full: { day: "2-digit", month: "long", year: "numeric" },
-      };
-      const dateObj = new Date(date);
-      return new Intl.DateTimeFormat("en-US", options[format]).format(dateObj);
-    },
-  },
+const store = useStore();
+
+const orders = computed(() => store.state.orders);
+const selectedOrder = computed(() => store.state.selectedOrder);
+const showDeleteConfirmation = computed(
+  () => store.state.showDeleteConfirmation
+);
+const orderToDelete = computed(() => store.state.orderToDelete);
+
+const selectOrder = (order) => store.commit("selectOrder", order);
+const deselectOrder = () => store.commit("deselectOrder");
+const confirmDelete = (order) => store.commit("confirmDelete", order);
+const deleteOrder = () => store.commit("deleteOrder");
+const cancelDelete = () => store.commit("cancelDelete");
+
+const formatDate = (date, format) => {
+  const options = {
+    short: { month: "2-digit", day: "2-digit", year: "numeric" },
+    full: { day: "2-digit", month: "long", year: "numeric" },
+  };
+  const dateObj = new Date(date);
+  return new Intl.DateTimeFormat("en-US", options[format]).format(dateObj);
 };
 </script>
 
@@ -45,7 +35,7 @@ export default {
     <div class="d-flex">
       <ul class="list-unstyled">
         <li
-          v-for="order in filteredOrders"
+          v-for="order in orders"
           :key="order.id"
           @click="selectOrder(order)"
           class="order-item d-flex justify-content-between align-items-center p-3 border rounded mb-2 bg-white"
@@ -101,12 +91,17 @@ export default {
           <p class="ms-4">No products in this order</p>
         </div>
         <ul v-else>
-          <li class="d-flex" v-for="product in selectedOrder.products" :key="product.id">
-            <h5 >{{ product.title }}</h5>
+          <li
+            class="d-flex"
+            v-for="product in selectedOrder.products"
+            :key="product.id"
+          >
+            <h5>{{ product.title }}</h5>
             <p class="ms-5">Type: {{ product.type }}</p>
           </li>
         </ul>
       </div>
+
       <div v-if="showDeleteConfirmation" class="modal-overlay">
         <div class="modal-content">
           <button class="close-btn" @click="cancelDelete"><CloseIcon /></button>
@@ -140,6 +135,7 @@ export default {
   width: 550px;
   cursor: pointer;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -152,6 +148,7 @@ export default {
   align-items: center;
   z-index: 1000;
 }
+
 .modal-content {
   position: relative;
   background-color: white;
@@ -160,6 +157,7 @@ export default {
   max-width: 600px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
+
 .close-btn {
   position: absolute;
   border: none;
@@ -171,6 +169,7 @@ export default {
   width: 30px;
   height: 30px;
 }
+
 .btn-cancel {
   border: none;
   border-radius: 20px;
@@ -178,10 +177,12 @@ export default {
   padding: 5px 30px;
   font-weight: 600;
 }
+
 .delete-btn {
   background-color: inherit;
   border: none;
 }
+
 .modal-footer {
   display: flex;
   justify-content: flex-end;
